@@ -50,14 +50,32 @@
 //   }
 // }
 
-const btn = document.getElementById("myBtn");
-function sayHello() {
-  console.log("hello");
-}
+// btn.addEventListener("click", sayHello);
+// btn.addEventListener("click", function () {
+//   console.log("another event");
+// });
 
-btn.addEventListener("click", sayHello);
-btn.addEventListener("click", function () {
-  console.log("another event");
-});
+// btn.removeEventListener("click", sayHello);
 
-btn.removeEventListener("click", sayHello);
+// function sum(b) {
+//   return b();
+// }
+
+// sum(function () {
+//   return b;
+// });
+
+// arrow function
+// TODO:TEST
+
+const a = {
+  age: 1232,
+  name: "Doanh",
+};
+
+localStorage.setItem("user", JSON.stringify(a));
+
+const parse = JSON.parse(localStorage.getItem("user"));
+console.log(parse);
+
+console.log(location.href);
