@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import CustomButton from "./components/CustomButton";
+import Header from "./components/Header";
+import Layout from "./components/Layout";
 
 function App() {
-  const [count, setCount] = useState(0)
+  let randomString = "hello word!";
+
+  const Students = Array.from({ length: 20 }, (_, i) => ({
+    id: i + 1,
+    age: 14 + Math.floor(Math.random() * 3),
+    name: `Văn ${String.fromCharCode(65 + i)}`,
+    gender: Math.random() < 0.5 ? "male" : "female",
+    score: Math.floor(Math.random() * 51) + 50,
+  }));
+
+  // yêu cầu render ra list các sinh viên
+  // yêu cầu render ra các sinh viên có giới tính là nữ và có điểm số chẵn
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Layout>
+      {Students.map((student, idx) => (
+        <div key={student.id}>
+          <div>=========== Học sinh {idx + 1} =============</div>
+          <div>ID:{student.id}</div>
+          <div>Tuổi:{student.age}</div>
+          <div>Học và tên:{student.name}</div>
+        </div>
+      ))}
+    </Layout>
+  );
 }
 
-export default App
+export default App;
