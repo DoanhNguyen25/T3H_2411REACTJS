@@ -1,32 +1,33 @@
+import { useState } from "react";
 import "./App.css";
-import CustomButton from "./components/CustomButton";
-import Header from "./components/Header";
 import Layout from "./components/Layout";
+import Header from "./components/Header";
 
 function App() {
-  let randomString = "hello word!";
+  const [count, setCount] = useState(0);
+  const [showUserClick, setShowUserClick] = useState("");
+  const [value, setValue] = useState();
 
-  const Students = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    age: 14 + Math.floor(Math.random() * 3),
-    name: `Văn ${String.fromCharCode(65 + i)}`,
-    gender: Math.random() < 0.5 ? "male" : "female",
-    score: Math.floor(Math.random() * 51) + 50,
-  }));
+  const handleCount = () => {
+    setCount(count + 1);
+  };
 
-  // yêu cầu render ra list các sinh viên
-  // yêu cầu render ra các sinh viên có giới tính là nữ và có điểm số chẵn
-
+  const handleSetUser = (userName) => {
+    setShowUserClick(userName);
+  };
+  const handleOnchange = (e) => {
+    setValue(e.target.value);
+  };
   return (
     <Layout>
-      {Students.map((student, idx) => (
-        <div key={student.id}>
-          <div>=========== Học sinh {idx + 1} =============</div>
-          <div>ID:{student.id}</div>
-          <div>Tuổi:{student.age}</div>
-          <div>Học và tên:{student.name}</div>
-        </div>
-      ))}
+      {showUserClick}
+      <Header value={count} setUser={handleSetUser} />
+
+      <input type="text" onChange={handleOnchange} value={value} />
+
+      <button onClick={() => alert(`giá trị của ô input ${value}`)}>
+        save
+      </button>
     </Layout>
   );
 }

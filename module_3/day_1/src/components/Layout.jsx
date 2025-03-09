@@ -1,16 +1,16 @@
 import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import CustomButton from "./CustomButton";
+import Footer from "./Footer";
+import Header from "./Header";
 
 const Layout = (props) => {
-  console.log(props.children);
+  // console.log(props.children);
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {props.children}
-      <CustomButton />
-      <Footer />
+      {/* <CustomButton /> */}
+      {/* <Footer /> */}
     </>
   );
 };

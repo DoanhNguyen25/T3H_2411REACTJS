@@ -1,10 +1,14 @@
 import React from "react";
 
 // props is read only
-const Header = (props) => {
-  const { name } = props;
-  console.log("giá trị các properties", name);
-  return <div>Header</div>;
+const Header = ({ value, setUser }) => {
+  return (
+    <div>
+      Header{value}
+      <button onClick={() => setUser("trung")}>trung</button>
+      <button onClick={() => setUser("kiên")}>kiên</button>
+    </div>
+  );
 };
 
 export default Header;

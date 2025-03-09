@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const CustomButton = ({ title }) => {
-  console.log(title);
+  // console.log(title);
   return <button>{title}</button>;
 };
 
