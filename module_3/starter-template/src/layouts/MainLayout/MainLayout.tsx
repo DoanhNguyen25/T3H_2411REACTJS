@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 
 interface Props {
   children?: React.ReactNode
@@ -50,7 +50,9 @@ export default function MainLayout({ children }: Props) {
           </ul>
         </div>
       </aside>
-      <main className='col-span-3 h-full py-4 px-3'>{children}</main>
+      <main className='col-span-3 h-full py-4 px-3'>
+        <Outlet />
+      </main>
     </div>
   )
 }
