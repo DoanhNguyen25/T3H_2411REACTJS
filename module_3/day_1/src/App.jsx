@@ -1,33 +1,57 @@
-import { useState } from "react";
-import "./App.css";
+import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
-import Header from "./components/Header";
+import DetailUser from "./components/DetailUser";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [showUserClick, setShowUserClick] = useState("");
-  const [value, setValue] = useState();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [idUser, setIdUser] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await fetch("https://dummyjson.com/users");
+        const response = await data.json();
 
-  const handleCount = () => {
-    setCount(count + 1);
-  };
+        if (response) {
+          setData(response.users);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleSetUser = (userName) => {
-    setShowUserClick(userName);
-  };
-  const handleOnchange = (e) => {
-    setValue(e.target.value);
-  };
+    fetchData();
+  }, []);
+
+  if (loading) return <>Đang tải ....</>;
+
   return (
     <Layout>
-      {showUserClick}
-      <Header value={count} setUser={handleSetUser} />
+      <div style={{ display: "flex", width: "100px", flexWrap: "wrap" }}>
+        {data ? (
+          data.map((item) => (
+            <div
+              key={item.id}
+              style={{ border: "1px solid gray", marginBottom: "20px" }}
+            >
+              <div>{item.firstName}</div>
+              <div>{item.email}</div>
+              <div>{item.age}</div>
 
-      <input type="text" onChange={handleOnchange} value={value} />
+              <button onClick={() => setIdUser(item.id)}>xem chi tiết</button>
+            </div>
+          ))
+        ) : (
+          <>Không có dữ liệu</>
+        )}
+      </div>
 
-      <button onClick={() => alert(`giá trị của ô input ${value}`)}>
-        save
-      </button>
+      <DetailUser id={idUser} />
     </Layout>
   );
 }
