@@ -12,7 +12,14 @@ function App() {
       path: '/',
       element: <MainLayout />,
       children: [
-        { path: '', element: <Dashboard /> },
+        {
+          path: '',
+          element: (
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          )
+        },
         { path: 'about', element: <About /> },
         {
           path: 'staffList',
@@ -56,3 +63,10 @@ function App() {
 }
 
 export default App
+
+const ProtectedRoute = ({ children }) => {
+  const { token } = useAuth()
+
+  if (!token) return <LoginPage />
+  return children
+}
