@@ -1,23 +1,58 @@
-import { Formik } from "formik";
-import "./App.css";
+import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
-import { createContext, useState } from "react";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-
-export const RootContext = createContext();
+import DetailUser from "./components/DetailUser";
 
 function App() {
-  const [theme, setTheme] = useState("light");
-  return (
-    <RootContext.Provider value={{ theme, setTheme }}>
-      {/* <Layout>
-        <Header />
-        <Footer />
-      </Layout> */}
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [idUser, setIdUser] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await fetch("https://dummyjson.com/users");
+        const response = await data.json();
 
-      
-    </RootContext.Provider>
+        if (response) {
+          setData(response.users);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <>Đang tải ....</>;
+
+  return (
+    <Layout>
+      <div style={{ display: "flex", width: "100px", flexWrap: "wrap" }}>
+        {data ? (
+          data.map((item) => (
+            <div
+              key={item.id}
+              style={{ border: "1px solid gray", marginBottom: "20px" }}
+            >
+              <div>{item.firstName}</div>
+              <div>{item.email}</div>
+              <div>{item.age}</div>
+
+              <button onClick={() => setIdUser(item.id)}>xem chi tiết</button>
+            </div>
+          ))
+        ) : (
+          <>Không có dữ liệu</>
+        )}
+      </div>
+
+      <DetailUser id={idUser} />
+    </Layout>
   );
 }
 
