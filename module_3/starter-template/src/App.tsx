@@ -14,11 +14,7 @@ function App() {
       children: [
         {
           path: '',
-          element: (
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          )
+          element: <Dashboard />
         },
         { path: 'about', element: <About /> },
         {
@@ -42,31 +38,7 @@ function App() {
       children: []
     }
   ])
-  return (
-    <div className='App'>
-      {/* <Routes>
-        <Route path='/' element={<MainLayout />}>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/staffList' element={<StaffList />}>
-            <Route path=':staffId' element={<StaffItem />} />
-            <Route path='list' element={<>staff llisst</>} />
-          </Route>
-        </Route>
-
-        <Route path='*' element={<>PAge not found</>} />
-        <Route path='/login' element={<LoginPage />} />
-      </Routes> */}
-      {elementsRoutes}
-    </div>
-  )
+  return <div className='App'>{elementsRoutes}</div>
 }
 
 export default App
-
-const ProtectedRoute = ({ children }) => {
-  const { token } = useAuth()
-
-  if (!token) return <LoginPage />
-  return children
-}
