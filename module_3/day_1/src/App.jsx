@@ -26,7 +26,7 @@ function App() {
     };
 
     fetchData();
-  }, []);
+  },[]);
 
   if (loading) return <>Đang tải ....</>;
 

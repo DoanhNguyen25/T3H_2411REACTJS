@@ -2,6 +2,9 @@ import React from "react";
 
 // props is read only
 const Header = ({ value, setUser }) => {
+  const function1 = () => {};
+  const function2 = () => {};
+  const function3 = () => {};
   return (
     <div>
       Header{value}
